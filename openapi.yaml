@@ -1,0 +1,267 @@
+openapi: 3.1.0
+info:
+  title: Boardlet API
+  version: 1.0.0
+  description: >-
+    One shared local Kanban board. Input titles contain at most 120 characters
+    before trimming and must include a non-whitespace character. Titles are
+    trimmed for storage. All JSON objects reject unknown fields; explicit null
+    values are invalid. A failed validation returns a readable detail string.
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/health:
+    get:
+      operationId: getHealth
+      summary: Check that the API is running
+      responses:
+        '200':
+          description: API is running
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              example:
+                status: ok
+  /api/tasks:
+    get:
+      operationId: listTasks
+      summary: List a page of tasks
+      description: >-
+        Tasks are ordered by created_at ascending, then id ascending. Total
+        counts all stored tasks, independently of pagination. An offset beyond
+        the end returns an empty items array. Search and priority filtering
+        happen in the frontend after it loads all pages.
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: One page of tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskPage'
+              example:
+                items: []
+                total: 0
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createTask
+      summary: Create a task
+      description: >-
+        Generates a UUID and UTC timestamps. Missing optional fields receive
+        their documented defaults. Do not automatically retry an uncertain
+        request: POST has no idempotency key and may create a duplicate.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+            example:
+              title: Prepare the homework demo
+              priority: high
+      responses:
+        '201':
+          $ref: '#/components/responses/TaskResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /api/tasks/{task_id}:
+    parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      operationId: getTask
+      summary: Read a task
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateTask
+      summary: Update selected task fields
+      description: >-
+        Requires at least one editable field. Only supplied fields change;
+        absent fields are preserved. Assignments use absolute values, including
+        status moves. The server refreshes updated_at and preserves created_at.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdate'
+            example:
+              status: in_progress
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTask
+      summary: Delete a task
+      description: Deleting a missing or previously deleted task returns 404.
+      responses:
+        '204':
+          description: Task deleted; the response has no body
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    TitleInput:
+      type: string
+      minLength: 1
+      maxLength: 120
+      pattern: '\S'
+      description: >-
+        The input must contain 1 to 120 characters before trimming and include
+        a non-whitespace character. Leading and trailing whitespace is removed
+        for storage. Padded input longer than 120 characters is rejected.
+    TaskStatus:
+      type: string
+      enum: [todo, in_progress, done]
+    TaskPriority:
+      type: string
+      enum: [low, medium, high]
+    TaskCreate:
+      type: object
+      additionalProperties: false
+      required: [title]
+      properties:
+        title:
+          $ref: '#/components/schemas/TitleInput'
+        description:
+          type: string
+          maxLength: 2000
+          default: ''
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+          default: todo
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+          default: medium
+    TaskUpdate:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        title:
+          $ref: '#/components/schemas/TitleInput'
+        description:
+          type: string
+          maxLength: 2000
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+    Task:
+      type: object
+      additionalProperties: false
+      required: [id, title, description, status, priority, created_at, updated_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          minLength: 1
+          maxLength: 120
+          pattern: '^\S(?:[\s\S]*\S)?$'
+        description:
+          type: string
+          maxLength: 2000
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        priority:
+          $ref: '#/components/schemas/TaskPriority'
+        created_at:
+          type: string
+          format: date-time
+          description: UTC creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: UTC timestamp of the most recent update
+      examples:
+        - id: 52e04a1c-6bf4-464e-96ac-f1c87cac6b70
+          title: Prepare the homework demo
+          description: Show creation, a status move, and persisted data.
+          status: todo
+          priority: high
+          created_at: '2026-09-16T09:00:00Z'
+          updated_at: '2026-09-16T09:00:00Z'
+    TaskPage:
+      type: object
+      additionalProperties: false
+      required: [items, total]
+      properties:
+        items:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Task'
+        total:
+          type: integer
+          minimum: 0
+    Health:
+      type: object
+      additionalProperties: false
+      required: [status]
+      properties:
+        status:
+          type: string
+          const: ok
+    Error:
+      type: object
+      additionalProperties: false
+      required: [detail]
+      properties:
+        detail:
+          type: string
+  responses:
+    TaskResponse:
+      description: The complete task
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+    NotFound:
+      description: No task exists with this UUID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            detail: Task not found
+    ValidationError:
+      description: Invalid JSON body, task UUID, or pagination parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            detail: title must contain 1 to 120 characters and cannot be blank

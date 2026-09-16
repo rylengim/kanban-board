@@ -11,7 +11,9 @@ the backend. The user selected Mini Kanban board for Zoomcamp Homework 2.
 
 1. As a user, I see one shared board split into three fixed columns.
 2. I can add a card with a required title, optional description, priority, and
-   initial status. Titles are trimmed and contain 1–120 characters;
+   initial status. Input titles contain 1–120 characters before trimming and
+   include a non-whitespace character; surrounding whitespace is removed for
+   storage. Padded input longer than 120 characters is rejected;
    descriptions contain at most 2,000 characters. Priority is low, medium, or
    high, defaulting to medium. Status defaults to todo.
 3. I can edit a card and move it to any column through keyboard-accessible
