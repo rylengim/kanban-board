@@ -9,7 +9,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.memory import MemoryTaskRepository
+from app.config import configured_repository
 from app.models import Error, Health, Task, TaskCreate, TaskPage, TaskUpdate
 from app.repository import TaskRepository
 
@@ -27,13 +27,13 @@ TASK_ERRORS = {**VALIDATION_ERROR, 404: {"model": Error, "description": "Task no
 
 def create_app(repository: TaskRepository | None = None) -> FastAPI:
     """The app initializes and closes its injected repository for each lifespan."""
-    task_repository = repository if repository is not None else MemoryTaskRepository()
+    task_repository = repository if repository is not None else configured_repository()
 
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
-        task_repository.initialize()
-        application.state.repository = task_repository
         try:
+            task_repository.initialize()
+            application.state.repository = task_repository
             yield
         finally:
             task_repository.close()
