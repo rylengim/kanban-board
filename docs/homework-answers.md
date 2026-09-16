@@ -1,7 +1,9 @@
 # Homework 2 submission answers
 
-Status: local implementation and verification complete. GitHub publication is
-deferred at the user's request; the course form has not been submitted.
+Status: implementation, verification, and GitHub publication complete. The
+course form has not been submitted.
+
+Repository: [rylengim/kanban-board](https://github.com/rylengim/kanban-board).
 
 | Question | Answer |
 | --- | --- |
@@ -14,9 +16,9 @@ deferred at the user's request; the course form has not been submitted.
 | 7. Run tests | From `backend/`: `uv run pytest ../tests`; from `frontend/`: `npm test` |
 
 Question 3 asks for a commit **pushed to GitHub**. The SHA above identifies the
-real local initial commit, containing `_docs/specs.md`, `.gitignore`,
-`README.md`, and `AGENTS.md` before implementation. It still needs to be pushed
-to the repository the user supplies. No remote has been invented or configured.
+[published initial commit](https://github.com/rylengim/kanban-board/commit/8a73b51d9cbbcd670272067faec92cc9e4250486),
+containing `_docs/specs.md`, `.gitignore`, `README.md`, and `AGENTS.md` before
+implementation. Its original history was preserved when the project was pushed.
 
 Verified: 173 backend tests, 17 frontend tests, Ruff, strict TypeScript, and the
 production frontend build pass. The live browser checked CRUD, filtering,

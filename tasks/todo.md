@@ -13,5 +13,5 @@
   (173 backend tests and Ruff pass; commit `f644124`).
 - [x] Finish browser checks, independent review, and submission documentation
   (17 frontend tests and build pass; live SQLite process restart verified).
-- [ ] Push to the user's GitHub repository once its URL is supplied (deferred
-  by user; this task prepares the project locally).
+- [x] Push the complete history to the user-supplied
+  [rylengim/kanban-board](https://github.com/rylengim/kanban-board) repository.

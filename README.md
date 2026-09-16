@@ -14,6 +14,13 @@ requires no API key.
 Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/getting-started/installation/),
 Node.js 22.12+, and npm. Open two terminals from this project directory.
 
+To get the project:
+
+```bash
+git clone https://github.com/rylengim/kanban-board.git
+cd kanban-board
+```
+
 Backend:
 
 ```bash
@@ -140,6 +147,8 @@ publicly with sensitive tasks without adding access controls.
 
 The initial specification commit for Question 3 is
 `8a73b51d9cbbcd670272067faec92cc9e4250486`.
-The user requested local preparation and will supply a GitHub repository later;
-the push and course form submission are pending. See
+The project and its complete homework history are published in
+[rylengim/kanban-board](https://github.com/rylengim/kanban-board), including
+[the initial specification commit](https://github.com/rylengim/kanban-board/commit/8a73b51d9cbbcd670272067faec92cc9e4250486).
+The course form has not been submitted. See
 [the prepared answers](docs/homework-answers.md) before submitting.

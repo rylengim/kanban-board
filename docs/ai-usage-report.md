@@ -3,8 +3,9 @@
 ## Human decisions
 
 The user supplied the Module 2 lesson and 2026 Homework 2 links, selected
-**Mini Kanban board** from the four homework choices, and requested local
-preparation while the GitHub repository is decided later.
+**Mini Kanban board** from the four homework choices, and initially requested
+local preparation. The user later supplied
+[rylengim/kanban-board](https://github.com/rylengim/kanban-board) for publication.
 
 ## Assistance actually used
 
@@ -71,6 +72,10 @@ committed OpenAPI contract rather than inventing independent response formats.
 - Independent reviews covered the memory backend, frontend, and SQLAlchemy
   slice. All actionable findings were fixed; no remaining blockers were found.
   The final fresh-tab browser console is clean during healthy operation.
+- On 2026-09-16 the user supplied the GitHub repository. It was empty, so the
+  existing main branch was pushed using the user's configured SSH access.
+  The complete development history and original Question 3 commit were
+  preserved. Submission documentation was updated with the published links.
 
 ## Reproducibility and limits
 
@@ -81,9 +86,9 @@ downloads and local servers required approved execution outside the sandbox;
 this is specific to the agent environment. The frontend npm audit reported
 zero known vulnerabilities when the dependencies were installed.
 
-The complete app is local, with no accounts or private boards. PostgreSQL,
-deployment, CI/CD, GitHub publication, and submission-form completion are not
-claimed. The user explicitly deferred providing the remote repository.
+The complete app runs locally, with no accounts or private boards. Its source
+and history are published on GitHub. PostgreSQL, app deployment, CI/CD, and
+submission-form completion are not claimed.
 
 ## Source references
 
