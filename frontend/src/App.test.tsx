@@ -16,6 +16,7 @@ describe('Boardlet user journeys', () => {
     render(<App api={createMemoryApi([])} />);
     await screen.findByText('Your next idea starts here.');
     await user.click(screen.getByRole('button', { name: 'New task' }));
+    expect(screen.getByLabelText('Title')).toHaveFocus();
     expect(screen.getByLabelText('Priority')).toHaveValue('medium');
     expect(screen.getByLabelText('Status')).toHaveValue('todo');
     await user.type(screen.getByLabelText('Title'), '  Prepare demo  ');
@@ -29,14 +30,20 @@ describe('Boardlet user journeys', () => {
     await screen.findByRole('heading', { name: 'Share demo' });
     await user.selectOptions(screen.getByRole('combobox', { name: 'Move Share demo' }), 'done');
     await waitFor(() => expect(within(screen.getByRole('region', { name: 'Done' })).getByRole('heading', { name: 'Share demo' })).toBeVisible());
+    expect(screen.getByRole('combobox', { name: 'Move Share demo' })).toHaveFocus();
+    await user.click(screen.getByRole('button', { name: 'Refresh board' }));
+    await screen.findByRole('heading', { name: 'Share demo' });
+    expect(screen.getByRole('combobox', { name: 'Move Share demo' })).not.toHaveFocus();
     await user.click(screen.getByRole('button', { name: 'Edit Share demo' }));
     await user.click(screen.getByRole('button', { name: 'Delete task' }));
+    expect(screen.getByRole('button', { name: 'Keep task' })).toHaveFocus();
     await user.click(screen.getByRole('button', { name: 'Keep task' }));
     expect(screen.getByRole('heading', { name: 'Share demo' })).toBeVisible();
     await user.click(screen.getByRole('button', { name: 'Edit Share demo' }));
     await user.click(screen.getByRole('button', { name: 'Delete task' }));
     await user.click(screen.getByRole('button', { name: 'Delete permanently' }));
     await waitFor(() => expect(screen.queryByRole('heading', { name: 'Share demo' })).not.toBeInTheDocument());
+    expect(screen.getByRole('button', { name: 'New task' })).toHaveFocus();
   });
 
   it('combines text and priority filters and restores the full board', async () => {
@@ -70,6 +77,40 @@ describe('Boardlet user journeys', () => {
     await user.click(screen.getByRole('button', { name: 'Create task' }));
     expect(screen.getByRole('alert')).toHaveTextContent('2,000');
     expect(await api.list()).toHaveLength(0);
+  });
+
+  it('counts Unicode code points at the title and description boundaries', async () => {
+    const user = userEvent.setup();
+    const api = createMemoryApi([]);
+    render(<App api={api} />);
+    await screen.findByText('Your next idea starts here.');
+    await user.click(screen.getByRole('button', { name: 'New task' }));
+    const title = '😀'.repeat(120);
+    fireEvent.change(screen.getByLabelText('Title'), { target: { value: title } });
+    fireEvent.change(screen.getByLabelText('Description'), { target: { value: '😀'.repeat(2000) } });
+    await user.click(screen.getByRole('button', { name: 'Create task' }));
+    await screen.findByRole('heading', { name: title });
+    expect(await api.list()).toHaveLength(1);
+    await user.click(screen.getByRole('button', { name: `Edit ${title}` }));
+    fireEvent.change(screen.getByLabelText('Title'), { target: { value: '😀'.repeat(121) } });
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+    expect(screen.getByRole('alert')).toHaveTextContent('120');
+    fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Valid title' } });
+    fireEvent.change(screen.getByLabelText('Description'), { target: { value: '😀'.repeat(2001) } });
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+    expect(screen.getByRole('alert')).toHaveTextContent('2,000');
+  });
+
+  it('returns focus to New task when saving an edit moves the original button away', async () => {
+    const user = userEvent.setup();
+    render(<App api={createMemoryApi(sample)} />);
+    await screen.findByRole('heading', { name: 'Plan the demo' });
+    await user.click(screen.getByRole('button', { name: 'Edit Plan the demo' }));
+    await user.selectOptions(screen.getByLabelText('Status'), 'done');
+    await user.click(screen.getByRole('button', { name: 'Save changes' }));
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(within(screen.getByRole('region', { name: 'Done' })).getByRole('heading', { name: 'Plan the demo' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'New task' })).toHaveFocus();
   });
 
   it('preserves form input on failed save and allows a deliberate retry', async () => {

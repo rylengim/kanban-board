@@ -15,6 +15,7 @@ export default function App({ api, demo = false }: { api: TaskApi; demo?: boolea
   const [priority, setPriority] = useState<TaskPriority | 'all'>('all');
   const [editor, setEditor] = useState<Editor | null>(null);
   const [deleting, setDeleting] = useState<Task | null>(null);
+  const [focusTask, setFocusTask] = useState<string | null>(null);
   const query = search.trim().toLocaleLowerCase();
   const filtered = query !== '' || priority !== 'all';
   const visible = board.tasks.filter(task => (priority === 'all' || task.priority === priority)
@@ -22,6 +23,11 @@ export default function App({ api, demo = false }: { api: TaskApi; demo?: boolea
   const done = board.tasks.filter(task => task.status === 'done').length;
   const disabled = board.loading || board.saving;
   function add(status: TaskStatus = 'todo') { setEditor({ initialStatus: status }); }
+  async function move(task: Task, status: TaskStatus) {
+    setFocusTask(null);
+    await board.move(task, status);
+    setFocusTask(task.id);
+  }
 
   return (
     <div className="app-shell">
@@ -47,7 +53,7 @@ export default function App({ api, demo = false }: { api: TaskApi; demo?: boolea
         <main id="board" className="board-content">
           <div className="board-heading">
             <div><p className="eyebrow">Room to make progress</p><h1>Project board</h1><p className="subtitle">Big ideas. Small steps. Keep things moving.</p></div>
-            <button className="primary" aria-label="New task" disabled={disabled} onClick={() => add()}><Icon name="plus" /><span>New task</span></button>
+            <button id="new-task" className="primary" aria-label="New task" disabled={disabled} onClick={() => add()}><Icon name="plus" /><span>New task</span></button>
           </div>
           <div className="board-toolbar">
             <div className="search-field"><Icon name="search" size={17} /><input type="search" aria-label="Search tasks" placeholder="Search your tasks…" value={search} onChange={event => setSearch(event.target.value)} /></div>
@@ -73,7 +79,7 @@ export default function App({ api, demo = false }: { api: TaskApi; demo?: boolea
                   <div className="column-heading"><span className="column-dot" /><h2 id={`column-${column.status}`}>{column.title}</h2><span className="column-count" aria-label={`${tasks.length} tasks`}>{tasks.length}</span><button aria-label={`Add task to ${column.title}`} disabled={disabled} onClick={() => add(column.status)}><Icon name="plus" size={16} /></button></div>
                   {board.loading ? <div aria-hidden="true"><div className="skeleton" /><div className="skeleton" /></div> :
                     <div className="task-list">
-                      {tasks.map(task => <TaskCard key={task.id} task={task} disabled={disabled} onEdit={task => setEditor({ task, initialStatus: task.status })} onMove={(task, status) => void board.move(task, status)} />)}
+                      {tasks.map(task => <TaskCard key={task.id} task={task} disabled={disabled} restoreFocus={focusTask === task.id} onFocusRestored={() => setFocusTask(null)} onEdit={task => setEditor({ task, initialStatus: task.status })} onMove={(task, status) => void move(task, status)} />)}
                       {tasks.length === 0 && <div className="column-empty"><p>{filtered ? 'No matching tasks.' : board.error && board.tasks.length === 0 ? 'Refresh to load your tasks.' : column.empty}<span>{filtered ? 'Try a different search or priority.' : 'One small step at a time.'}</span></p></div>}
                     </div>}
                   <button className="column-add" disabled={disabled} onClick={() => add(column.status)}><Icon name="plus" size={16} />Add task</button>
