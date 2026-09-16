@@ -1,0 +1,26 @@
+[project]
+name = "boardlet-backend"
+version = "1.0.0"
+description = "Boardlet local Kanban API"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "pydantic>=2.10,<3",
+  "uvicorn>=0.30,<1",
+]
+
+[dependency-groups]
+dev = [
+  "httpx>=0.27,<1",
+  "jsonschema>=4,<5",
+  "pytest>=8,<10",
+  "pyyaml>=6,<7",
+  "ruff>=0.11,<1",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
