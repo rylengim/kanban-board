@@ -109,3 +109,21 @@ submission-form completion are not claimed.
 This app was developed **with** AI assistance. It does not call an AI API at
 runtime, require an API key, or include a generated claim about the user's
 personal learning experience.
+
+
+## Final-project extension — 10 November 2026
+
+The user chose Boardlet for the second final-project attempt after the official
+brief confirmed that the numbered projects are two attempts for one application.
+The coordinator specified the delivery increment before implementation and used
+separate delivery, verification, documentation, and independent-review agents.
+See [actual assignments](agent-team.md) and [F1–F6 tracker](../tasks/todo.md).
+
+The team packaged the existing app, added real-process persistence verification
+and a shared CI command, documented state machines, resolved audit advisories,
+and checked the actual production browser interface. Failed initial audit and
+Docker network checks were corrected; evidence and remaining limits are in the
+[verification report](final-project-verification.md). Local commits preserve the
+specification, dependency fix, delivery changes and evidence as separate steps.
+Only synthetic data was used. No source or demo was published and no course form
+was submitted during this local preparation.

@@ -7,6 +7,12 @@ In progress, and Done. Success means a user can create, edit, move, and delete a
 card in the browser and see persisted changes after refreshing or restarting
 the backend. The user selected Mini Kanban board for Zoomcamp Homework 2.
 
+For the final project selected on 10 November 2026,
+[the delivery specification](../docs/final-project-spec.md) extends this app with
+container packaging, unified verification, and CI. This file remains the Kanban
+behavior contract; [state machines](../docs/state-machines.md) explain its runtime
+transitions. Completed homework evidence remains historical.
+
 ## Scope and user stories
 
 1. As a user, I see one shared board split into three fixed columns.
@@ -29,8 +35,10 @@ the backend. The user selected Mini Kanban board for Zoomcamp Homework 2.
 ## Non-goals
 
 Authentication, accounts, private boards, multiple boards, due dates, assignees,
-comments, attachments, real-time synchronization, manual card ordering,
-containers, CI/CD, and public deployment. This is a trusted local demo.
+comments, attachments, real-time synchronization, manual card ordering, and
+public deployment. This is a trusted local demo. Containers and CI were homework
+non-goals; they are now included by the final-project delivery specification.
+Automatic deployment remains follow-up work.
 
 ## Architecture
 

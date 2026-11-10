@@ -1,6 +1,7 @@
 # Boardlet
 
-A Mini Kanban board for AI Dev Tools Zoomcamp Homework 2.
+A small Kanban app for turning a backlog into visible progress. Built for AI Dev
+Tools Zoomcamp Homework 2 and extended for the 2026 final project.
 
 Track tasks through **To do → In progress → Done** with a React frontend,
 FastAPI backend, and SQLite persistence through SQLAlchemy.
@@ -9,7 +10,48 @@ The canonical product specification is in [_docs/specs.md](_docs/specs.md).
 The app is developed with AI assistance; it has no runtime AI dependency and
 requires no API key.
 
-## Run locally
+## Start the packaged app
+
+Install Docker Engine/Desktop with Docker Compose, then run from this directory:
+
+```bash
+docker compose up --build --wait
+```
+
+Open [Boardlet](http://localhost:8080). The production frontend and API share one
+origin; SQLite lives in a named Docker volume and survives container restarts.
+Only the web service is published, on the local loopback interface. To use a
+free port: `BOARDLET_PORT=18080 docker compose up --build --wait`.
+
+Stop with `docker compose down`; the database volume is retained. See the
+[deployment and demo guide](docs/deployment.md) for verification and rollback.
+This is a shared local board with no accounts; use synthetic data for demos.
+
+## Verify everything
+
+With Python 3.12+, uv, Node.js 22.12+, and npm installed:
+
+```bash
+./scripts/check.sh
+```
+
+This installs locked dependencies and runs backend lint/tests, frontend tests
+and the production build, plus a real HTTP CRUD and process-restart persistence
+check. Its database is temporary; your development and container databases are
+not used. The [CI workflow](.github/workflows/ci.yml) runs the same command.
+
+## Final project
+
+- [Delivery specification](docs/final-project-spec.md) and [task tracker](tasks/todo.md)
+- [Agent team and process](docs/agent-team.md) and [state machines](docs/state-machines.md)
+- [Current verification evidence](docs/final-project-verification.md)
+- [Submission checklist and rubric evidence](docs/final-project-submission.md)
+
+The final-project increment is prepared locally. Publication, remote CI, course
+submission, and peer reviews have their own unchecked entries in the tracker.
+Historical Homework 2 submission answers below describe the original work.
+
+## Develop from source
 
 Prerequisites: Python 3.12+, [uv](https://docs.astral.sh/uv/getting-started/installation/),
 Node.js 22.12+, and npm. Open two terminals from this project directory.
@@ -139,11 +181,12 @@ before trimming; descriptions are limited to 2,000. The API lists at most 100
 tasks per page and the frontend loads every page before filtering.
 
 This is a trusted local demo with one shared board. Authentication, private
-boards, real-time synchronization, and public deployment are outside its scope.
+boards, and real-time synchronization are outside its scope. The final-project
+increment packages a local deployment; external hosting is not configured.
 Concurrent edits to the same field use the last saved value. Do not deploy it
 publicly with sensitive tasks without adding access controls.
 
-## Submission
+## Historical Homework 2 submission
 
 The initial specification commit for Question 3 is
 `8a73b51d9cbbcd670272067faec92cc9e4250486`.

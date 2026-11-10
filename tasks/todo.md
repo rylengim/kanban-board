@@ -20,28 +20,31 @@
 
 - [x] F1: Verify the official attempt/deadline rules, select Boardlet, and record
   `docs/final-project-spec.md` before implementation. Owner: coordinator.
-- [ ] F2: Package frontend/API/SQLite with one-command startup. Owner: delivery
+- [x] F2: Package frontend/API/SQLite with one-command startup. Owner: delivery
   engineer. Acceptance: same-origin UI works; loopback by default; persistent
   volume survives restart. Verify: Compose build/start and restart smoke check.
   Depends on F1; files: Dockerfiles, Compose, proxy config, ignore rules.
-- [ ] F3: Provide one-command checks plus real-process CRUD/restart integration.
+- [x] F3: Provide one-command checks plus real-process CRUD/restart integration.
   Owner: verification engineer. Acceptance: all existing checks and isolated HTTP
   persistence pass; CI calls the same command. Verify: run command locally and
   inspect workflow failure propagation. Depends on F1; files: scripts, HTTP test,
   CI workflow.
-- [ ] F4: Document the agent team, state machines, deployment/demo and rollback.
+- [x] F4: Document the agent team, state machines, deployment/demo and rollback.
   Owner: documentation engineer. Acceptance: responsibilities and failure states
   are explicit; runbooks match delivered commands. Verify links and commands.
   Depends on F1, completed commands from F2/F3; files: AGENTS, modular docs, spec.
-- [ ] Checkpoint: F2/F3 checks pass together and packaged app is reachable locally.
-- [ ] F5: Verify browser journeys and conduct independent review. Owner: QA and
+- [x] Checkpoint: F2/F3 checks pass together and packaged app is reachable locally.
+- [x] F5: Verify browser journeys and conduct independent review. Owner: QA and
   coordinator. Acceptance: synthetic card CRUD and restart persistence verified,
   desktop/mobile usable, actionable review findings fixed. Verify browser,
   container checks and focused regressions. Depends on F2/F3; evidence in docs.
-- [ ] F6: Assemble honest rubric/submission evidence. Owner: coordinator.
+- [x] F6: Assemble honest rubric/submission evidence. Owner: coordinator.
   Acceptance: README and checklist match actual results and identify unpublished
   work. Verify documentation references and clean diff. Depends on F4/F5.
 - [ ] Publication/submission: obtain explicit authorization under device rules,
   publish the reviewed code, verify remote CI, record exact commit and submit
   by 17 November 2026 02:00 Moscow. Not completed by local preparation.
 - [ ] Peer review: complete three assigned reviews by 24 November 2026 02:00 Moscow.
+
+Final local evidence: [verification report](../docs/final-project-verification.md).
+F2–F6 were verified locally; publication/submission and peer review remain open.
