@@ -1,7 +1,8 @@
 # Final-project submission checklist
 
-Prepared for the 2026 second attempt. Implementation evidence is local until
-explicitly published. This file is not evidence that a form has been submitted.
+Prepared for the 2026 second attempt. The reviewed implementation and synthetic
+demo are published on `feature/final-project-readiness`. This file is not
+evidence that a course form has been submitted.
 
 ## Dates and attempt rules
 
@@ -29,14 +30,14 @@ increment is deliberately distinguished from work still pending.
 | Criterion | Evidence / remaining work |
 | --- | --- |
 | Problem | README and `_docs/specs.md` |
-| Specification and tracker | `docs/final-project-spec.md`, `tasks/todo.md`; publish with code |
+| Specification and tracker | Published `docs/final-project-spec.md` and `tasks/todo.md` |
 | Agent team | `docs/agent-team.md` |
 | Context | `AGENTS.md` links modular docs |
 | Connected application | Compose startup; browser and persistence evidence |
 | Tests | `scripts/check.sh`, existing suites, real-process HTTP check |
 | Containers | API/web Dockerfiles, Compose and persistent SQLite volume |
-| Deployment | Verified local package and synthetic demo recording; publication pending |
-| CI/CD | PR/push workflow prepared; remote run and CD not completed |
+| Deployment | Verified local package and published synthetic demo recording |
+| CI/CD | Remote checks passed on reviewed implementation; CD not implemented |
 | Observability | Basic server logs only; correlated metrics/traces/UI absent |
 | Alerting | Not implemented |
 | On-call agent | Not implemented |
@@ -47,17 +48,20 @@ maximum marks. Optional rubric work must not put the submission window at risk.
 
 ## Before submitting
 
-- [ ] Review the local branch and current evidence; resolve any remaining issue.
-- [ ] Obtain explicit authorization to publish these local materials under the
-  current device rules, and confirm any account used belongs to this device.
-- [ ] Publish the reviewed branch to the existing project repository when
-  authorized. Do not upload databases, secrets, personal tasks, or chat histories.
-- [ ] Confirm remote CI passes at the exact proposed commit.
-- [ ] Confirm the specification, tracker and agent-process evidence are publicly
+- [x] Review the local branch and current evidence; resolve blocking issues.
+- [x] Obtain explicit authorization to publish the reviewed branch and demo
+  using this device’s existing repository access (10 November 2026).
+- [x] Publish the reviewed branch to the existing project repository. No
+  databases, secrets, personal tasks, or chat histories are included.
+- [x] Confirm remote CI passes at reviewed commit
+  `ee9c2a477c7a1803f18d90f99076e3c0a8c98e76`; see the verification report.
+- [ ] Before course submission, choose the exact final commit and confirm its CI
+  run, including any later documentation updates.
+- [x] Confirm the specification, tracker and agent-process evidence are publicly
   readable. If using a separate public issue tracker, link it from the README.
 - [x] Record a synthetic demo of the packaged application; see
   [final-project-demo.webm](final-project-demo.webm) and the verification report.
-- [ ] Publish the demo when authorized and verify that reviewers can access it.
+- [x] Publish the authorized synthetic demo and verify public access.
   Public hosting is another option if separately authorized with access controls.
 - [ ] Record the final full commit SHA. Do not submit a moving branch name.
 - [ ] In the course form, enter the public repository URL, exact commit, actual
@@ -66,6 +70,7 @@ maximum marks. Optional rubric work must not put the submission window at risk.
 - [ ] Complete the three assigned reviews before their separate deadline.
 
 Existing repository recorded in Homework 2:
-https://github.com/rylengim/kanban-board . Its existing remote contents do not
-automatically include this local final-project branch. Homework 2 answers and
-Homework 3's saved submission are separate from this final-project submission.
+[`rylengim/kanban-board`](https://github.com/rylengim/kanban-board/tree/feature/final-project-readiness).
+Use this branch or the exact submitted commit; `main` retains the original
+homework. Homework 2 answers and Homework 3's saved submission are separate
+from this final-project submission.

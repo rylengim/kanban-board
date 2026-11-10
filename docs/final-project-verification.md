@@ -3,7 +3,8 @@
 Local preparation on `feature/final-project-readiness`, based on Homework 2
 commit `8355372767974dab39167445cf5b7fc66028649a`. Delivery implementation is
 recorded in `d03af59`; the tooling audit fix is `8a86ca6`. No private databases, signed-in
-accounts, or conversation histories were used. No code or evidence was published.
+accounts, or conversation histories were used during local preparation. The
+user subsequently authorized publishing the reviewed branch and synthetic demo.
 
 ## Automated checks
 
@@ -81,10 +82,22 @@ instances; the runbook now assigns the synthetic instance its own subnet.
 Final review found no blocking code issues. Bash syntax and whitespace checks
 passed. The reviewer did not claim to have repeated the full test suite.
 
+## Publication and remote CI
+
+The reviewed implementation and demo were published on 10 November 2026 to
+[`feature/final-project-readiness`](https://github.com/rylengim/kanban-board/tree/feature/final-project-readiness).
+[GitHub Actions run 42790288850](https://github.com/rylengim/kanban-board/actions/runs/42790288850)
+passed all checks at `ee9c2a477c7a1803f18d90f99076e3c0a8c98e76`. Publication
+review found no databases, real environment files, credentials, or session
+exports in the outgoing files; media contains synthetic cards and no audio.
+The README clone command now selects this branch so reviewers receive the final
+project instead of the original homework on `main`.
+
 ## Remaining evidence boundaries
 
-Remote CI and public deployment have not run. The workflow is prepared and its
-local command is tested. No automatic CD, correlated observability, alert, or
-on-call agent is claimed. Rollback is documented for future retained image
-versions; a previous packaged release did not exist for this first installation.
-Publication, course submission, and peer reviews remain unchecked in the tracker.
+The application has no public hosting deployment. No automatic CD, correlated
+observability, alert, or on-call agent is claimed. Rollback is documented for
+future retained image versions; a previous packaged release did not exist for this first installation.
+Course submission and peer reviews remain unchecked in the tracker. The CI link
+above identifies the tested implementation revision; any later documentation
+commit has its own run in the repository Actions history.

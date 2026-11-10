@@ -14,8 +14,10 @@ and CI to the completed homework without expanding the Kanban product behavior.
   `docs/state-machines.md` describes transitions and failure invariants; update
   it when behavior changes, including loading, mutation, and process states.
 - Keep shared data access and publication within the current device's explicit
-  authorization. This increment is local only: no push, course submission,
-  shared-account integration, or synced Obsidian write.
+  authorization. On 10 November 2026 the user authorized publication of the
+  reviewed final-project branch and synthetic demo to `rylengim/kanban-board`.
+  This does not authorize course submission, shared-account integrations, other
+  device data, or synced Obsidian writes.
 - Keep branches after completion or merge. Never delete a branch earlier than
   seven full days afterward; elapsed time alone is not permission to delete it.
 - Verify the current revision. Historical homework test counts and publication

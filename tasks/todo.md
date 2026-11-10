@@ -41,10 +41,14 @@
 - [x] F6: Assemble honest rubric/submission evidence. Owner: coordinator.
   Acceptance: README and checklist match actual results and identify unpublished
   work. Verify documentation references and clean diff. Depends on F4/F5.
-- [ ] Publication/submission: obtain explicit authorization under device rules,
-  publish the reviewed code, verify remote CI, record exact commit and submit
-  by 17 November 2026 02:00 Moscow. Not completed by local preparation.
+- [x] Publication: user authorization obtained; reviewed code and synthetic demo
+  published on `feature/final-project-readiness` on 10 November 2026.
+- [x] Remote CI: [run 42790288850](https://github.com/rylengim/kanban-board/actions/runs/42790288850)
+  passed for reviewed implementation `ee9c2a477c7a1803f18d90f99076e3c0a8c98e76`.
+- [ ] Course submission: enter the published repository URL and exact chosen
+  full commit SHA, then verify the form is saved by 17 November 2026 02:00 Moscow.
 - [ ] Peer review: complete three assigned reviews by 24 November 2026 02:00 Moscow.
 
 Final local evidence: [verification report](../docs/final-project-verification.md).
-F2–F6 were verified locally; publication/submission and peer review remain open.
+F2–F6 were verified locally, followed by publication and remote CI. Course
+submission and peer review remain open.

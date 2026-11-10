@@ -20,8 +20,10 @@ submission steps. Use synthetic demonstration tasks only.
   verification under one entry point; use it in a pull-request CI workflow.
 - Explain state transitions, contributor responsibilities, deployment and
   rollback, and provide a rubric/evidence checklist and demo procedure.
-- Keep all work local. Do not publish code, use shared-account integrations,
-  submit course forms, delete branches, or write to the synced Obsidian vault.
+- Initial preparation was local. The user subsequently authorized publishing
+  the reviewed branch and synthetic demo to `rylengim/kanban-board` on 10 November
+  2026. Do not use shared-account integrations, submit course forms, delete
+  branches, or write to the synced Obsidian vault as part of publication.
 
 Containers and CI are now in scope. Multi-user authentication, new product
 features, external hosting, automatic deployment, telemetry services, alerts,
@@ -37,8 +39,8 @@ increment. A public deployment would require a separate access-control decision.
    a synthetic card survives a container restart and can be deleted afterward.
 4. A clean browser exercises create, status changes, reload, edit, and delete at
    desktop and narrow widths, with no unexpected console or request failures.
-5. Documentation distinguishes tests run locally from unexecuted remote CI and
-   completed implementation from publication/submission still to be done.
+5. Documentation distinguishes local tests from recorded remote CI results,
+   and publication from course submission and peer reviews still to be done.
 
 ## Course facts verified 10 November 2026
 

@@ -50,7 +50,8 @@ automated tests at an existing personal board.
 The local [recorded demo](final-project-demo.webm) shows a synthetic task moving
 through the packaged app. The [verification report](final-project-verification.md)
 records container startup and restart persistence, with desktop/mobile captures.
-Neither the recording nor the application has been published.
+The synthetic recording is published with the final-project branch. The
+application itself remains a local deployment; no public app URL is claimed.
 
 1. Start the packaged app and show both services healthy.
 2. Open the board; create “Synthetic review task” with a description and high

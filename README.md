@@ -12,9 +12,12 @@ requires no API key.
 
 ## Start the packaged app
 
-Install Docker Engine/Desktop with Docker Compose, then run from this directory:
+Install Docker Engine/Desktop with Docker Compose. Clone the final-project
+branch, then start it:
 
 ```bash
+git clone --branch feature/final-project-readiness https://github.com/rylengim/kanban-board.git
+cd kanban-board
 docker compose up --build --wait
 ```
 
@@ -47,8 +50,10 @@ not used. The [CI workflow](.github/workflows/ci.yml) runs the same command.
 - [Current verification evidence](docs/final-project-verification.md)
 - [Submission checklist and rubric evidence](docs/final-project-submission.md)
 
-The final-project increment is prepared locally. Publication, remote CI, course
-submission, and peer reviews have their own unchecked entries in the tracker.
+The final-project branch and synthetic demo are published. The reviewed
+implementation passed [GitHub Actions](https://github.com/rylengim/kanban-board/actions/runs/42790288850).
+Course submission and peer reviews remain open in the tracker. Review the
+`feature/final-project-readiness` branch; `main` contains the original homework.
 Historical Homework 2 submission answers below describe the original work.
 
 ## Develop from source
@@ -59,7 +64,7 @@ Node.js 22.12+, and npm. Open two terminals from this project directory.
 To get the project:
 
 ```bash
-git clone https://github.com/rylengim/kanban-board.git
+git clone --branch feature/final-project-readiness https://github.com/rylengim/kanban-board.git
 cd kanban-board
 ```
 

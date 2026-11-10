@@ -16,8 +16,8 @@ claim that earlier homework used this team or that pending checks have passed.
 The [task tracker](../tasks/todo.md#final-project-delivery--10-november-2026)
 contains F1–F6, owners, dependencies, acceptance criteria, and verification.
 The [plan](../tasks/plan.md#final-project-delivery-extension--10-november-2026)
-defines the integration order. These are local repository records; public issue
-tracker activity and publication are not claimed.
+defines the integration order. These repository records are now published with
+the final-project branch. No separate GitHub Issues activity is claimed.
 
 ## Coordination rules
 

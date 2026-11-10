@@ -127,3 +127,16 @@ Docker network checks were corrected; evidence and remaining limits are in the
 specification, dependency fix, delivery changes and evidence as separate steps.
 Only synthetic data was used. No source or demo was published and no course form
 was submitted during this local preparation.
+
+
+## Authorized publication — 10 November 2026
+
+The user approved publishing the reviewed branch and synthetic demo. The
+coordinator pushed `feature/final-project-readiness` to the existing repository
+and checked its public GitHub Actions result. Run
+[42790288850](https://github.com/rylengim/kanban-board/actions/runs/42790288850)
+passed on `ee9c2a477c7a1803f18d90f99076e3c0a8c98e76`. A publication-focused
+review checked the outgoing tracked files and synthetic media, and identified
+the README’s default-branch clone instruction; it now selects the project branch.
+Publication records were updated without changing application behavior. The
+course form was not submitted, and all branches were retained.
