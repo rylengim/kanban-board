@@ -1,0 +1,64 @@
+name: boardlet
+
+services:
+  api:
+    build: ./backend
+    image: "${COMPOSE_PROJECT_NAME:-boardlet}-api:${BOARDLET_VERSION:-local}"
+    environment:
+      BOARDLET_STORE: sqlalchemy
+      DATABASE_URL: sqlite:////data/boardlet.db
+    volumes:
+      - boardlet-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/tasks?limit=1', timeout=3).close()"
+      interval: 5s
+      timeout: 4s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build: ./frontend
+    image: "${COMPOSE_PROJECT_NAME:-boardlet}-web:${BOARDLET_VERSION:-local}"
+    ports:
+      - "127.0.0.1:${BOARDLET_PORT:-8080}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+        restart: true
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/api/health"]
+      interval: 5s
+      timeout: 4s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  boardlet-data:
+
+# An explicit, overridable subnet also works on hosts whose VPN routes cover
+# Docker's automatic address pools. Use a distinct subnet for concurrent copies.
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: "${BOARDLET_SUBNET:-10.254.241.0/24}"
